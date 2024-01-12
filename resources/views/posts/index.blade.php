@@ -19,6 +19,7 @@
                     <h2 class='title'>
                         <a href="/posts/{{ $post->id }}">{{ $post->title }}</a>
                     </h2>
+                    <small>{{ $post->user->name }}</small>
                     <p class='body'>{{ $post->body }}</p>
                 </div>
             @endforeach

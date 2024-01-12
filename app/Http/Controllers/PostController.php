@@ -9,6 +9,7 @@ use App\Models\Country;
 use App\Models\Restaurant;
 use App\Models\Dish;
 
+
 class PostController extends Controller
 {
     public function index(Post $post)
@@ -33,8 +34,11 @@ class PostController extends Controller
         
         if ($request->filled('new_country')) {
         // Create a new country
-        $newCountry = Country::create(['name' => $request->input('new_country')]);
-
+        $newCountry = Country::create([
+            'name' => $request->input('new_country'),
+            'address' => $request->input('post.address'),
+            ]);
+            
         // Update the request with the new country ID
         $input['country_id'] = $newCountry->id;
         }
@@ -58,6 +62,24 @@ class PostController extends Controller
         $input += ['user_id' => $request->user()->id];
         $post->fill($input)->save();
         return redirect('/posts/'.$post->id);
+    }
+    
+    public function edit(Post $post)
+    {
+        return view('posts/edit')->with(['post' => $post]);
+    }
+    
+    public function update(PostRequest $request, Post $post)
+    {
+        $input_post = $request['post'];
+        $post->fill($input_post)->save();
+        return redirect('/posts/'.$post->id);
+    }
+    
+    public function delete(Post $post)
+    {
+        $post->delete();
+        return redirect('/');
     }
     
     public function __construct()

@@ -39,6 +39,9 @@
                 </select>
                 or
                 <input type="text" name="new_restaurant" placeholder="Enter new restaurant">
+            <br>
+                <h3>Address</h3>
+                <input type="text" name="post[address]" placeholder="Enter restaurant address">
             </div>
             <br>
                 <div class="dish">
