@@ -7,7 +7,7 @@
     <x-app-layout>
     <body>
         <h1>Blog Name</h1>
-        <form action="/posts" method="POST">
+        <form action="/posts" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="title">
                 <h2>Title</h2>
@@ -53,6 +53,10 @@
                 </select>
                 or
                 <input type="text" name="new_dish" placeholder="Enter new dish">
+            </div>
+            <br>
+            <div class="image">
+                <input type="file" name="image">
             </div>
             <br>
             <input type="submit" value="store"/>

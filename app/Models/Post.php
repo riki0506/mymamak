@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Post extends Model
 {
     use HasFactory;
+    use SoftDeletes;
     
     protected $fillable = [
         'title',
@@ -16,7 +17,8 @@ class Post extends Model
         'country_id',
         'restaurant_id',
         'dish_id',
-        'user_id'
+        'user_id',
+        'image_url',
         ];
 
     public function country()
