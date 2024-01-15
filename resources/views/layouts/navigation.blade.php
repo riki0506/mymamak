@@ -46,6 +46,10 @@
                             {{ __('MyPosts') }}
                         </x-dropdown-link>
                         
+                        <x-dropdown-link :href="route('user.liked-posts')">
+                            {{ __('Liked Posts') }}
+                        </x-dropdown-link>
+                        
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf

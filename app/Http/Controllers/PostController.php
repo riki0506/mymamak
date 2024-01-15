@@ -8,7 +8,10 @@ use App\Models\Post;
 use App\Models\Country;
 use App\Models\Restaurant;
 use App\Models\Dish;
+use App\Models\Like;
 use Cloudinary;
+
+use Illuminate\Support\Facades\Auth;
 
 
 class PostController extends Controller
@@ -20,10 +23,15 @@ class PostController extends Controller
     
     public function show(Post $post)
     {
-        return view('posts.show')->with(['post' => $post]);
-    //'post'はbladeファイルで使う変数。中身は$postはid=1のPostインスタンス。
+        // Check if the user is logged in
+        if (auth()->check()) {
+            $like = Like::where('post_id', $post->id)->where('user_id', auth()->user()->id)->first();
+        } else {
+            $like = null; // If the user is not logged in, set $like to null
     }
-    
+
+    return view('posts.show', compact('post', 'like'));
+}
     public function create(Country $country, Restaurant $restaurant, Dish $dish)
     {
         return view('posts/create')->with(['countries' => $country->get(), 'restaurants' => $restaurant->get(), 'dishes' => $dish->get()]);
