@@ -7,12 +7,7 @@
     <!--    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">-->
     <!--</head>-->
     <x-app-layout>
-    <x-slot name="header">
-        Index
-    </x-slot>
     <body class="antialiased">
-        <h1>Mymamak Blog</h1>
-        <a href='/posts/create'>create</a>
         <div class='posts'>
             @foreach ($posts as $post)
                 <div class='post'>
@@ -29,6 +24,9 @@
             @endforeach
         </div>
         <div class='paginate'>{{ $posts->links()}}</div>
+        <div class="footer">
+            <a href="/">戻る</a>
+        </div>
     </body>
     </x-app-layout>
 </html>

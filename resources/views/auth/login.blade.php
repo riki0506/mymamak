@@ -44,4 +44,11 @@
             </x-primary-button>
         </div>
     </form>
+    
+    <!-- make new account --> 
+    <div class ="mt-8 border border-gray-400 p-4 rounded-md text-center">
+        <x-primary-button class="mt-2 bg-red-500 hover:bg-red-700 text-white rounded-full">
+            <a href="{{ route('register') }}">新しいアカウントを作成</a>
+        </x-primary-button>
+    </div>
 </x-guest-layout>
