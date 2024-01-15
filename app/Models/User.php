@@ -45,11 +45,23 @@ class User extends Authenticatable
     
     public function posts()   
     {
-    return $this->hasMany(Post::class);  
+        return $this->hasMany(Post::class);  
+    }
+    
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
     }
     
     public function getOwnPaginateByLimit(int $limit_count = 5)
     {
         return $this::with('posts')->find(Auth::id())->posts()->orderBy('updated_at', 'DESC')->paginate($limit_count);
     }
+    
+    public function likedPosts()
+    {
+    return $this->belongsToMany(Post::class, 'likes', 'user_id', 'post_id')->withTimestamps();
+    }
+    
+    
 }
