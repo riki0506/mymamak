@@ -34,7 +34,7 @@ class PostController extends Controller
 }
     public function create(Country $country, Restaurant $restaurant, Dish $dish)
     {
-        return view('posts/create')->with(['countries' => $country->get(), 'restaurants' => $restaurant->get(), 'dishes' => $dish->get()]);
+        return view('posts.create')->with(['countries' => $country->get(), 'restaurants' => $restaurant->get(), 'dishes' => $dish->get()]);
     }
     
     public function store(PostRequest $request, Post $post)
@@ -50,7 +50,6 @@ class PostController extends Controller
         // Create a new country
         $newCountry = Country::create([
             'name' => $request->input('new_country'),
-            'address' => $request->input('post.address'),
             ]);
             
         // Update the request with the new country ID

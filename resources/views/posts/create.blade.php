@@ -28,8 +28,8 @@
                 </select>
                 or
                 <input type="text" name="new_country" placeholder="Enter new country">
-            </div>
-            <br>
+                </div>
+                <br>
                 <div class="restaurant">
                 <h2>Restaurant</h2>
                 <select name="post[restaurant_id]">
@@ -39,11 +39,11 @@
                 </select>
                 or
                 <input type="text" name="new_restaurant" placeholder="Enter new restaurant">
-            <br>
-                <h3>Address</h3>
-                <input type="text" name="post[address]" placeholder="Enter restaurant address">
-            </div>
-            <br>
+            <!--<br>-->
+            <!--    <h3>Address</h3>-->
+            <!--    <input type="text" name="restaurant_address" placeholder="Enter restaurant address">-->
+                </div>
+                <br>
                 <div class="dish">
                 <h2>Dish</h2>
                 <select name="post[dish_id]">

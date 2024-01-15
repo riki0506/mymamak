@@ -10,11 +10,16 @@ class Restaurant extends Model
     use HasFactory;
     
     protected $fillable = [
-        'name'
+        'name',
         ];
     
     public function posts()
     {
     return $this->hasMany(Post::class);  
+    }
+    
+    public function getByRestaurant(int $limit_count = 5)
+    {
+     return $this->posts()->with('restaurant')->orderBy('updated_at', 'DESC')->paginate($limit_count);
     }
 }

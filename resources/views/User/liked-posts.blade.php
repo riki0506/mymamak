@@ -19,8 +19,12 @@
                                         <a href="/posts/{{ $post->id }}">{{ $post->title }}</a>
                                     </h2>
                                     <p class='body'>{{ $post->body }}</p>
+                                    <a href="/countries/{{ $post->country->id }}">{{ $post->country->name }}</a><br>
+                                    <a href="/restaurants/{{ $post->restaurant->id }}">{{ $post->restaurant->name }}</a><br>
+                                    <a href="/dishes/{{ $post->dish->id }}">{{ $post->dish->name }}</a><br>
                                     <small>{{ $post->user->name }}</small>
                                 </div>
+                                <br>
                             @endforeach
                         </ul>
                     @else

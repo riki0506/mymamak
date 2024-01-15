@@ -13,6 +13,10 @@ module.exports = {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                success: '#00C853', // Replace with your desired color for liked (green)
+                secondary: '#B0B0B0', // Replace with your desired color for unliked (grey)
+            }
         },
     },
 
