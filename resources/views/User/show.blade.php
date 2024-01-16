@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <x-app-layout>
-        <x-slot name="header">
-            Index
-        </x-slot>
+<!-- users/{username}/posts.blade.php -->
+
+<x-app-layout>
+    <x-slot name="header">
+        {{ $user_name }}'s Posts
+    </x-slot>
+
         <body class="antialiased">
-            <h1>Mymamak Blog</h1>
-            <a href='/posts/create'>create</a>
+            <br>
             <div class='posts-grid'>
                 @foreach ($posts as $post)
                     <div class='post'>
@@ -23,6 +23,25 @@
                     </div>
                 @endforeach
             </div>
+            
+            <!-- Follow/Unfollow button -->
+            @auth
+                @if(auth()->user()->isNot($user))
+                    @if(auth()->user()->following->contains($user))
+                        <form method="post" action="{{ route('User.unfollow', $user) }}">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" class="follow-button unfollow">Unfollow</button>
+                        </form>
+                    @else
+                        <form method="post" action="{{ route('User.follow', $user) }}">
+                            @csrf
+                            <button type="submit" class="follow-button">Follow</button>
+                        </form>
+                    @endif
+                @endif
+            @endauth
+            
             <div class='paginate'>{{ $posts->links()}}</div>
             <style>
                 .posts-grid {
@@ -48,4 +67,3 @@
             </style>
         </body>
     </x-app-layout>
-</html>

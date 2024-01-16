@@ -4,6 +4,13 @@
             {{ __('My Posts') }}
         </h2>
     </x-slot>
+    <body class="antialiased">
+        <!-- Display user profile details -->
+        <div>
+            <p>Followers: <a href="{{ route('User.followers', Auth::user()) }}">{{ Auth::user()->followers->count() }}</a></p>
+            <p>Following: <a href="{{ route('User.followers', Auth::user()) }}">{{ Auth::user()->following->count() }}</a></p>
+        </div>
+    </body>
     <div class="own_posts">
         @foreach ($own_posts as $post)
             <div class='post'>

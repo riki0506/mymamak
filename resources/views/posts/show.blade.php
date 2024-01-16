@@ -22,7 +22,7 @@
             <a href="/countries/{{ $post->country->id }}">{{ $post->country->name }}</a><br>
             <a href="/restaurants/{{ $post->restaurant->id }}">{{ $post->restaurant->name }}</a><br>
             <a href="/dishes/{{ $post->dish->id }}">{{ $post->dish->name }}</a><br>
-            <small>{{ $post->user->name }}</small>  
+            <a href="{{ route('User.show', $post->user_id)}}">{{ $post->user->name }}</a>
         </div>
         <span>
             @if(Auth::check())
