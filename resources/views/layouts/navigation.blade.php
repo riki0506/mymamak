@@ -42,11 +42,11 @@
                             {{ __('Profile') }}
                         </x-dropdown-link>
                         
-                        <x-dropdown-link :href="route('user.index')">
+                        <x-dropdown-link :href="route('User.index')">
                             {{ __('MyPosts') }}
                         </x-dropdown-link>
                         
-                        <x-dropdown-link :href="route('user.liked-posts')">
+                        <x-dropdown-link :href="route('User.liked-posts')">
                             {{ __('Liked Posts') }}
                         </x-dropdown-link>
                         

@@ -9,6 +9,7 @@ use App\Models\Country;
 use App\Models\Restaurant;
 use App\Models\Dish;
 use App\Models\Like;
+use App\Models\User;
 use Cloudinary;
 
 use Illuminate\Support\Facades\Auth;
