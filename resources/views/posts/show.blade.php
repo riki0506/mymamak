@@ -16,9 +16,11 @@
                 <h3>Body:</h3>
                 <p>{{ $post->body }}</p>    
             </div>
+            @if($post->image_url)
             <div>
                 <img src="{{ $post->image_url }}" alt="画像が読み込めません。"/>
             </div>
+            @endif
             <a href="/countries/{{ $post->country->id }}">{{ $post->country->name }}</a><br>
             <a href="/restaurants/{{ $post->restaurant->id }}">{{ $post->restaurant->name }}</a><br>
             <a href="/dishes/{{ $post->dish->id }}">{{ $post->dish->name }}</a><br>
