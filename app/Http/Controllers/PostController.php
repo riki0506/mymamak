@@ -43,9 +43,11 @@ class PostController extends Controller
         
         $input = $request['post'];
 
+        if($request->file('image')){
         //cloudinaryへ画像を送信し、画像のURLを$image_urlに代入している
         $image_url = Cloudinary::upload($request->file('image')->getRealPath())->getSecurePath();
         $input += ['image_url' => $image_url];
+        }
         
         if ($request->filled('new_country')) {
         // Create a new country

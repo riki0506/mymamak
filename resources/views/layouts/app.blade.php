@@ -12,22 +12,22 @@
 
     <!-- Your Custom Styles -->
     <style>
-        .button-container {
-            display: flex;
-        }
+        /*.button-container {*/
+        /*    display: flex;*/
+        /*}*/
 
-        .button-container button {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            background-color: #3490dc;
-            color: #ffffff;
-            cursor: pointer;
-        }
+        /*.button-container button {*/
+        /*    flex: 1;*/
+        /*    padding: 10px;*/
+        /*    border: none;*/
+        /*    background-color: #3490dc;*/
+        /*    color: #ffffff;*/
+        /*    cursor: pointer;*/
+        /*}*/
 
-        .content {
-            display: none;
-        }
+        /*.content {*/
+        /*    display: none;*/
+        /*}*/
     </style>
 
     <!-- Scripts -->
