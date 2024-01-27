@@ -35,12 +35,12 @@
                 </div>
               </div>
             <div class="font-bold text-xl mb-2">{{ $post->title }}</div>
-            <p class="text-gray-700 text-base mb-2">{{ $post->body }}</p>
+            <p class="text-gray-700 text-lg mb-2">{{ $post->body }}</p>
           </div>
           <div class="flex w-full justify-items-stretch px-6 gap-3 mb-2">
-            <div class="font-semibold"><a href="/countries/{{ $post->country->id }}">Country: {{ $post->country->name }}</a></div>
-            <div class="font-semibold"><a href="/restaurants/{{ $post->restaurant->id }}">Restaurant: {{ $post->restaurant->name }}</a></div>
-            <div class="font-semibold"><a href="/dishes/{{ $post->dish->id }}">Dish: {{ $post->dish->name }}</a></div>
+            <div class="font-semibold hover:underline"><a href="/countries/{{ $post->country->id }}">Country: {{ $post->country->name }}</a></div>
+            <div class="font-semibold hover:underline"><a href="/restaurants/{{ $post->restaurant->id }}">Restaurant: {{ $post->restaurant->name }}</a></div>
+            <div class="font-semibold hover:underline"><a href="/dishes/{{ $post->dish->id }}">Dish: {{ $post->dish->name }}</a></div>
           </div>
           @if(Auth::id() != $post->user_id)
             @if(Auth::check())
