@@ -16,15 +16,29 @@ class UserController extends Controller
     return view('User.index')->with(['own_posts' => $user->getOwnPaginateByLimit()]);
     }
     
-    public function likedPosts(User $user)
+    public function likedPosts(User $user, Request $request)
     {
     // Retrieve the liked posts for the currently authenticated user
-    $likedPosts = auth()->user()->likedPosts;
+    $likedPosts = auth()->user()->likedPosts();
+
+    // return view('User.liked-posts', compact('likedPosts'));
+    
+    if($request['sort'] == "created_at"){
+        $likedPosts = $likedPosts->orderBy('created_at', 'desc')->paginate(5);
+    }
+    elseif($request['sort'] == "like"){
+        $likedPosts = $likedPosts->withCount('likes')->orderByDesc('likes_count')->paginate(5);
+    }
+    else
+    {
+    // Default sorting if none of the conditions are met
+        $likedPosts = $likedPosts->orderBy('created_at', 'desc')->paginate(5);
+    }
 
     return view('User.liked-posts', compact('likedPosts'));
     }
     
-    public function show(User $user)
+    public function show(User $user, Request $request)
     {
          // Check if the authenticated user is viewing their own profile
         if (Auth::user() && Auth::user()->id === $user->id) {
@@ -32,9 +46,19 @@ class UserController extends Controller
         }
         
         $user = User::find($user->id); //idが、リクエストされた$userのidと一致するuserを取得
-        $posts = Post::where('user_id', $user->id) //$userによる投稿を取得
-            ->orderBy('created_at', 'desc') // 投稿作成日が新しい順に並べる
-            ->paginate(10); // ページネーション; 
+        
+        if($request['sort'] == "created_at"){
+            $posts = Post::where('user_id', $user->id)->orderBy('created_at', 'desc')->paginate(5);
+        }
+        elseif($request['sort'] == "like"){
+            $posts = Post::where('user_id', $user->id)->withCount('likes')->orderByDesc('likes_count')->paginate(5);
+        }
+        else
+        {
+        // Default sorting if none of the conditions are met
+        $posts = Post::where('user_id', $user->id)->orderBy('created_at', 'desc')->paginate(5);
+        }
+        
         return view('User.show', [
             'user_name' => $user->name, // $user名をviewへ渡す
             'posts' => $posts, // $userの書いた記事をviewへ渡す

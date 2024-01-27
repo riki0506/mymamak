@@ -17,9 +17,24 @@ use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
-    public function index(Post $post)
+    // public function index(Request $request, Post $post)
+    public function index(Request $request, Post $posts)
     {
-        return view('posts.index')->with(['posts' => $post->getPaginateByLimit()]);
+        if($request['sort'] == "created_at"){
+            $posts = Post::orderBy('created_at', 'desc')->paginate(5);
+        }
+        elseif($request['sort'] == "like"){
+            $posts = Post::withCount('likes')->orderByDesc('likes_count')->paginate(5);
+        }
+        else
+        {
+        // Default sorting if none of the conditions are met
+        $posts = Post::orderBy('created_at', 'desc')->paginate(5);
+        }
+
+        return view('posts.index', compact('posts'));
+
+
     }
     
     public function show(Post $post)
@@ -80,14 +95,47 @@ class PostController extends Controller
         return redirect('/posts/'.$post->id);
     }
     
-    public function edit(Post $post)
+    public function edit(Post $post, Country $country, Restaurant $restaurant, Dish $dish)
     {
-        return view('posts/edit')->with(['post' => $post]);
+        return view('posts/edit')->with(['post' => $post, 'countries' => $country->get(), 'restaurants' => $restaurant->get(), 'dishes' => $dish->get()]);
     }
     
     public function update(PostRequest $request, Post $post)
     {
         $input_post = $request['post'];
+        
+        if($request->file('image')){
+        //cloudinaryへ画像を送信し、画像のURLを$image_urlに代入している
+        $image_url = Cloudinary::upload($request->file('image')->getRealPath())->getSecurePath();
+        $input_post += ['image_url' => $image_url];
+        }
+        
+        if ($request->filled('new_country')) {
+        // Create a new country
+        $newCountry = Country::create([
+            'name' => $request->input('new_country'),
+            ]);
+            
+        // Update the request with the new country ID
+        $input_post['country_id'] = $newCountry->id;
+        }
+        
+        if ($request->filled('new_restaurant')) {
+        // Create a new restaurant
+        $newRestaurant = Restaurant::create(['name' => $request->input('new_restaurant')]);
+
+        // Update the request with the new restaurant ID
+        $input_post['restaurant_id'] = $newRestaurant->id;
+        }
+        
+        if ($request->filled('new_dish')) {
+        // Create a new dish
+        $newDish = Dish::create(['name' => $request->input('new_dish')]);
+
+        // Update the request with the new dish ID
+        $input_post['dish_id'] = $newDish->id;
+        }
+        
         $post->fill($input_post)->save();
         return redirect('/posts/'.$post->id);
     }
@@ -98,8 +146,30 @@ class PostController extends Controller
         return redirect('/');
     }
     
+    public function like($id)
+    {
+    Like::create([
+      'post_id' => $id,
+      'user_id' => Auth::id(),
+    ]);
+
+    session()->flash('success', 'You Liked the Post.');
+
+    return redirect()->back();
+    }
+    
+    public function unlike($id)
+    {
+    $like = Like::where('post_id', $id)->where('user_id', Auth::id())->first();
+    $like->delete();
+
+    session()->flash('success', 'You Unliked the Post.');
+
+    return redirect()->back();
+    }
+    
     public function __construct()
     {
-    $this->middleware('auth')->only(['create', 'store']);
+    $this->middleware('auth')->only(['create', 'store', 'like', 'unlike']);
     }
 }

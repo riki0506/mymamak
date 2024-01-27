@@ -18,8 +18,22 @@ class Dish extends Model
     return $this->hasMany(Post::class);  
     }
     
-    public function getByDish(int $limit_count = 5)
+    // public function getByDish(int $limit_count = 5)
+    // {
+    // return $this->posts()->with('dish')->orderBy('updated_at', 'DESC')->paginate($limit_count);
+    // }
+    
+    public function getByDish(int $limit_count = 5, string $sort)
     {
-    return $this->posts()->with('dish')->orderBy('updated_at', 'DESC')->paginate($limit_count);
+        if($sort === 'like'){
+            return $this->posts()->with('dish')->withCount('likes')->orderByDesc('likes_count')->paginate($limit_count);
+        }
+        else if($sort === 'date'){
+            return $this->posts()->with('dish')->orderBy('updated_at', 'DESC')->paginate($limit_count);
+        }
+        else
+        {
+            return $this->posts()->with('dish')->orderBy('updated_at', 'DESC')->paginate($limit_count);
+        }
     }
 }

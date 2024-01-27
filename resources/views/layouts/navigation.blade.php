@@ -12,11 +12,11 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+                    <!--<x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">-->
+                    <!--    {{ __('Dashboard') }}-->
+                    <!--</x-nav-link>-->
                     <x-nav-link :href="route('index')" :active="request()->routeIs('index')">
-                        {{ __('Index') }}
+                        {{ __('Home Page') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -43,7 +43,7 @@
                         </x-dropdown-link>
                         
                         <x-dropdown-link :href="route('User.index')">
-                            {{ __('MyPosts') }}
+                            {{ __('My Page') }}
                         </x-dropdown-link>
                         
                         <x-dropdown-link :href="route('User.liked-posts')">
