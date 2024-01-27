@@ -1,11 +1,15 @@
 <x-app-layout>
     <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
         Follower/Following Page
+        </h2>
     </x-slot>
     
-    <div class="user-stats-container">
-        <div class="user-stats">
-            <div class="user-name">{{ auth()->user()->name }}</div>
+    <body class="antialiased">
+
+    <div class="flex mx-auto max-w-4xl min-w-xl h-28 mb-4 mt-4 bg-white">
+        <div class="user-stats p-4">
+            <div class="user-name font-semibold text-xl">{{ auth()->user()->name }}</div>
             <div class="post-count">Posts: {{ auth()->user()->posts()->count() }}</div>
             <div class="followers-following-count">
                 Followers: {{ auth()->user()->followers()->count() }} |
@@ -20,6 +24,7 @@
         <button id="followers-button" onclick="showContent('followers')" class="selected">Followers</button>
         <button id="followings-button" onclick="showContent('followings')">Following</button>
     </div>
+    <br>
 
     <div id="followers" class="content">
         <!-- Content for followers goes here -->
@@ -27,18 +32,18 @@
             @if ($followers->count() > 0)
                 @foreach($followers as $follower)
                     <li class="user-item">
-                        <span>{{ $follower->name }}</span>
+                          <span>{{ $follower->name }}</span>
                         
                         @if(auth()->user()->following->contains($follower))
                             <form method="post" action="{{ route('User.unfollow', $follower) }}">
                                 @csrf
                                 @method('delete')
-                                <button type="submit" class="follow-button unfollow">Unfollow</button>
+                                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Unfollow</button>
                             </form>
                         @else
                             <form method="post" action="{{ route('User.follow', $follower) }}">
                                 @csrf
-                                <button type="submit" class="follow-button">Follow</button>
+                                <button type="submit" class="text-blue-700 bg-white border border-blue-700 hover:bg-blue-800 hover:text-white focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Follow</button>
                             </form>
                         @endif
                     </li>
@@ -61,12 +66,12 @@
                             <form method="post" action="{{ route('User.unfollow', $following) }}">
                                 @csrf
                                 @method('delete')
-                                <button type="submit" class="follow-button unfollow">Unfollow</button>
+                                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Unfollow</button>
                             </form>
                         @else
                             <form method="post" action="{{ route('User.follow', $following) }}">
                                 @csrf
-                                <button type="submit" class="follow-button">Follow</button>
+                                <button type="submit" class="text-blue-700 bg-white border border-blue-700 hover:bg-blue-800 hover:text-white focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Follow</button>
                             </form>
                         @endif
                     </li>
@@ -182,5 +187,5 @@
         }
     </style>
     
-    
+    </body>
 </x-app-layout>

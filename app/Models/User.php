@@ -48,9 +48,48 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);  
     }
     
+    // public function likes()
+    // {
+    //     return $this->hasMany(Like::class);
+    // }
+    
+    public function likedPosts()
+    {
+        return $this->belongsToMany(Post::class, 'likes', 'user_id', 'post_id')->withTimestamps();
+    }
+    
     public function likes()
     {
-        return $this->hasMany(Like::class);
+        return $this->belongsToMany(Post::class, 'likes', 'user_id', 'post_id')->withTimestamps();
+    }
+    
+    public function like($postId)
+    {
+        $exist = $this->is_like($postId);
+        
+        if($exist){
+            return false;
+        }else{
+            $this->likes()->attach($postId);
+            return true;
+        }
+    }
+    
+    public function unlike($postId)
+    {
+        $exist = $this->is_like($postId);
+        
+        if($exist){
+            $this->likes()->detach($postId);
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    public function is_like($postId)
+    {
+        return $this->likes()->where('post_id',$postId)->exists();
     }
     
     public function getOwnPaginateByLimit(int $limit_count = 5)
@@ -58,10 +97,6 @@ class User extends Authenticatable
         return $this::with('posts')->find(Auth::id())->posts()->orderBy('updated_at', 'DESC')->paginate($limit_count);
     }
     
-    public function likedPosts()
-    {
-        return $this->belongsToMany(Post::class, 'likes', 'user_id', 'post_id')->withTimestamps();
-    }
     
     public function followers()
     {

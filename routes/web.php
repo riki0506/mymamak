@@ -46,9 +46,9 @@ Route::controller(PostController::class)->middleware(['auth'])->group(function()
 Route::get('/posts/{post}', [PostController::class, 'show'])->name('show');
 
 //Routing for each country, restaurant and dish
-Route::get('/countries/{country}', [CountryController::class,'index']);
-Route::get('/restaurants/{restaurant}', [RestaurantController::class,'index']);
-Route::get('/dishes/{dish}', [DishController::class,'index']);
+Route::get('/countries/{country}', [CountryController::class,'index'])->name('country');
+Route::get('/restaurants/{restaurant}', [RestaurantController::class,'index'])->name('restaurant');
+Route::get('/dishes/{dish}', [DishController::class,'index'])->name('dish');
 
 
 Route::get('/User', [UserController::class, 'index'])->name('User.index');
@@ -65,8 +65,12 @@ Route::middleware('auth')->group(function () {
 });
 
 // いいねボタン
-    Route::get('/posts/like/{post}', [LikeController::class, 'like'])->name('like');
-    Route::get('/posts/unlike/{post}', [LikeController::class, 'unlike'])->name('unlike');
+    Route::get('/posts/like/{id}', [PostController::class, 'like'])->name('like');
+    Route::get('/posts/unlike/{id}', [PostController::class, 'unlike'])->name('unlike');
+    
+// Route::post('/{post}/like', [LikeController::class, 'store'])->name('likes.like');
+// Route::delete('/{post}/unlike', [LikeController::class, 'destroy'])->name('likes.unlike');
+
 
 // Route::middleware(['auth'])->group(function () {
 //     Route::post('/User/follow/{user}', [FollowController::class, 'follow'])->name('User.follow');
