@@ -35,24 +35,28 @@
                     </div>
                 </div>
               </div>
-            <form action="/posts/{{ $post->id }}" method="POST">
+            <form action="/posts/{{ $post->id }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="title">
                     <h2>Title</h2>
-                    <input type="text" name=post[title] placeholder="Title" value={{ $post->title }}>
+                    <input type="text" name=post[title] value="{{ $post->title }}">
                     <p class='title__error' style="color:red">{{ $errors->first('post.title') }} </p>
                 </div>
+                <br>
                 <div class="body">
                     <h2>Body</h2>
-                    <textarea name="post[body]" placeholder="This is body">{{ $post->body }}</textarea>
+                    <textarea class="w-96" name='post[body]'> {{ $post->body }} </textarea>
                     <p class='body__error' style="color:red">{{ $errors->first('post.body') }} </p>
                 </div>
+                <br>
                 <div class="country">
                 <h2>Country</h2>
                 <select name="post[country_id]">
                     @foreach($countries as $country)
-                        <option value="{{ $country->id }}">{{ $country->name }}</option>
+                        <option value="{{ $country->id }}" {{ old('post.country_id', $post->country_id) == $country->id ? 'selected' : '' }}>
+                            {{ $country->name }}
+                        </option>
                     @endforeach
                 </select>
                 or
@@ -63,7 +67,9 @@
                 <h2>Restaurant</h2>
                 <select name="post[restaurant_id]">
                     @foreach($restaurants as $restaurant)
-                        <option value="{{ $restaurant->id }}">{{ $restaurant->name }}</option>
+                        <option value="{{ $restaurant->id }}" {{ old('post.restaurant_id', $post->restaurant_id) == $restaurant->id ? 'selected' : '' }}>
+                            {{ $restaurant->name }}
+                        </option>
                     @endforeach
                 </select>
                 or
@@ -77,7 +83,9 @@
                 <h2>Dish</h2>
                 <select name="post[dish_id]">
                     @foreach($dishes as $dish)
-                        <option value="{{ $dish->id }}">{{ $dish->name }}</option>
+                        <option value="{{ $dish->id }}" {{ old('post.dish_id', $post->dish_id) == $dish->id ? 'selected' : '' }}>
+                            {{ $dish->name }}
+                        </option>
                     @endforeach
                 </select>
                 or
@@ -85,9 +93,11 @@
                 </div>
                 <br>
                 <div class="image">
-                    <input type="file" name="image">
+                    <input class="mb-4" type="file" name="image">
                 </div>
-                <input type="submit" value="update">
+                <x-primary-button type="submit" value="update">
+                    Update
+                </x-primary-button>
             </form>
 
               </div>

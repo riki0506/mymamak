@@ -25,10 +25,11 @@
                 </div>
             </div>
                     @foreach ($posts as $post)
-                          <div class="flex mx-auto max-w-7xl min-w-4xl h-80 bg-white shadow-lg rounded-lg overflow-hidden relative mb-4 hover:scale-105">
-                            <a href="/posts/{{ $post->id }}" class="w-1/3 bg-cover">
-                                <img src="{{ $post->image_url }}" alt="画像が読み込めません。"/>
-                            </a> 
+                          <!--<div class="flex mx-auto max-w-7xl min-w-4xl h-80 bg-white shadow-lg rounded-lg relative mb-4 hover:scale-105">-->
+                          <div class="flex mx-auto max-w-7xl min-w-4xl h-90px bg-white shadow-lg rounded-lg relative mb-4 hover:scale-105">
+                            <a href="/posts/{{ $post->id }}">
+                                <img class="h-72 w-96 flex-none bg-cover object-cover lg:rounded-t-none lg:rounded-l text-center overflow-hidden" src="{{ $post->image_url }}" alt="画像が読み込めません。"/>
+                            </a>
                             <div class="w-2/3 p-4">
                               <div class="flex items-start mb-2">
                                 <div class="profile icon">
@@ -52,7 +53,7 @@
                                 <h1 class="text-gray-900 font-bold text-2xl mb-2">{{ $post->title }}</h1>
                               </div>
                               <div class="body">
-                                <p class="text-gray-600 text-base">{{ $post->body }}</p>
+                                <p class="text-gray-600 text-lg">{{ $post->body }}</p>
                               </div>
                                 <span>
                                     @if(Auth::id() != $post->user_id)
