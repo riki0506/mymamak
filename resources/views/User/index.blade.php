@@ -20,7 +20,7 @@
     
     <div class="flex mx-auto max-w-7xl min-w-4xl mb-4 mt-4 items-stretch justify-between">
         <div>
-        <form action="{{ route('index') }}">    
+        <form action="{{ route('User.index') }}">    
             <select name="sort" onchange="this.form.submit()" class="form-control">
                 <option value="">Sort By</option>
                 <option value="created_at">Date</option>
